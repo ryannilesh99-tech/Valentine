@@ -21,14 +21,24 @@
     text-align: center;
     color: white;
     width: 100%;
+    position: relative;
   }
 
   h1 {
     font-size: 2.2rem;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     padding: 0 10px;
   }
 
+  /* Owl */
+  #owl {
+    position: fixed;
+    font-size: 2.5rem;
+    pointer-events: none;
+    transition: left 0.3s ease, top 0.3s ease;
+  }
+
+  /* YES button */
   #yesBtn {
     padding: 20px 45px;
     font-size: 22px;
@@ -45,16 +55,17 @@
     transform: scale(1.1);
   }
 
+  /* NO button (50% size) */
   #noBtn {
     position: fixed;
-    padding: 3px 6px;
-    font-size: 8px;
-    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 11px;
+    border-radius: 10px;
     border: none;
     background-color: #dc3545;
     color: white;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.75;
   }
 </style>
 </head>
@@ -64,28 +75,41 @@
 <div class="container">
   <h1>💖 Mural, will you be my Valentine? 💖</h1>
   <button id="yesBtn">YES 💕</button>
-  <button id="noBtn">no</button>
+  <button id="noBtn">No</button>
 </div>
+
+<div id="owl">🦉💖</div>
 
 <script>
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
+  const owl = document.getElementById("owl");
 
   function moveNoButton() {
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
+
+    // Owl follows NO button (slightly above it)
+    owl.style.left = (x - 10) + "px";
+    owl.style.top = (y - 50) + "px";
   }
 
+  // Initial placement
   moveNoButton();
 
+  // Desktop hover
   noBtn.addEventListener("mouseenter", moveNoButton);
+
+  // Mobile touch
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     moveNoButton();
   });
 
+  // NO clicked (rare 😜)
   noBtn.addEventListener("click", () => {
     document.body.innerHTML = `
       <div style="
@@ -104,6 +128,7 @@
     `;
   });
 
+  // YES clicked
   yesBtn.addEventListener("click", () => {
     document.body.innerHTML = `
       <div style="
@@ -118,8 +143,10 @@
         font-size:2.2rem;
         padding:20px;
       ">
+        🦉💖<br><br>
         🎉 Yayyyy!!! 🎉<br><br>
-        You made the perfect choice 💕
+        You made the perfect choice 💕<br>
+        Your gift is on the way 🎁
       </div>
     `;
   });
@@ -127,3 +154,4 @@
 
 </body>
 </html>
+
